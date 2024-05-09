@@ -4,12 +4,14 @@ import genAI from '@server/routes/genAi';
 import { globalErrorHandler } from '@server/middleware/errorHandling';
 import bodyParser from 'body-parser';
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import mongoose from 'mongoose';
 import type { Express, Request, Response } from 'express';
 import type { Server } from 'http';
-import { LinktaFlowRouter } from './routes/linktaFlowRoutes';
+import { LinktaFlowRouter } from './routes/linktaFlowRouter';
 
 getEnv();
 const uri = process.env.MONGO_DB_URI;
+mongoose.set('strictQuery', false);
 
 /**
  * Start the server.
@@ -111,6 +113,8 @@ async function connectToDatabase(link: string) {
     console.log(
       'Pinged your deployment. You successfully connected to MongoDB!'
     );
+    await mongoose.connect(uri ?? '')
+      .then(() => console.log('MONGOOSE connected!'))
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();

@@ -6,7 +6,7 @@ import {
   deleteTreeByTreeId,
   updateTreeByTreeId,
   getTreeByTreeId
-} from '../controllers/linktaFlowsController';
+} from '../controllers/linktaFlowController';
 
 
 LinktaFlowRouter.get('/:userId', getTreesByUserId);
