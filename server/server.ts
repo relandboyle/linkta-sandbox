@@ -1,14 +1,17 @@
 import express from 'express';
-import { getEnv } from '@server/utils/environment';
-import genAI from '@server/routes/genAi';
-import { globalErrorHandler } from '@server/middleware/errorHandling';
+import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import { getEnv } from '@server/utils/environment';
+import { globalErrorHandler } from '@server/middleware/errorHandling';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import type { Express, Request, Response } from 'express';
 import type { Server } from 'http';
+import genAI from '@server/routes/genAi';
+import { LinktaFlowRouter } from './routes/linktaFlowRouter';
 
 getEnv();
 const uri = process.env.MONGO_DB_URI;
+mongoose.set('strictQuery', false);
 
 /**
  * Start the server.
@@ -36,6 +39,8 @@ function startServer() {
    * Routes.
    */
   app.use('/gen-ai', genAI);
+
+  app.use('/api/trees', LinktaFlowRouter);
 
   /**
    * Default route for unknown routes. This should be the last route.
@@ -108,6 +113,8 @@ async function connectToDatabase(link: string) {
     console.log(
       'Pinged your deployment. You successfully connected to MongoDB!'
     );
+    await mongoose.connect(uri ?? '')
+      .then(() => console.log('MONGOOSE connected!'))
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
