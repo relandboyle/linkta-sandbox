@@ -43,7 +43,7 @@ const linktaFlowSchema: Schema<LinktaFlowType> = new Schema({
   nodes: [
     {
       id: String,
-      type: String,
+      type: { type: String },
       position: { x: Number, y: Number },
       data: { label: String },
     },
@@ -53,7 +53,7 @@ const linktaFlowSchema: Schema<LinktaFlowType> = new Schema({
       id: String,
       source: String,
       target: String,
-      type: String,
+      type: { type: String },
     },
   ],
   userInputId: { type: Schema.Types.ObjectId, ref: 'UserInput' },
