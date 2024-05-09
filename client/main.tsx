@@ -1,11 +1,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Theme } from '@radix-ui/themes';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import './styles/index.css';
+import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
+import './styles/index.css';
 
 const rootElement = document.getElementById('root');
 

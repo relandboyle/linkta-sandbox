@@ -1,17 +1,34 @@
-import React from 'react';
-import { TextField } from '@radix-ui/themes';
+import { Box, TextField } from '@radix-ui/themes';
+import React, { useState } from 'react';
 
 const PromptInputForm = () => {
-  return (
-    <form className="mt-48">
-    <TextField.Root placeholder="Generateeeee">
-      <TextField.Slot>
+  const [promptValue, setPromptValue] = useState('');
 
-      </TextField.Slot>
-    </TextField.Root>
-    <button className="border-2" type="submit">Generate</button>
-    </form>
-  )
+  const handleChange = (event) => {
+    setPromptValue(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    // console.log(inputValue);
+  };
+
+  return (
+    <div className="mt-48">
+      <Box maxWidth="200px">
+        <TextField.Root
+          placeholder="Enter your prompt"
+          value={promptValue}
+          onChange={handleChange}
+        />
+      </Box>
+      <button
+        className="border-2"
+        onClick={handleSubmit}
+      >
+        Generate
+      </button>
+    </div>
+  );
 };
 
 export default PromptInputForm;
