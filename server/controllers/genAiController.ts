@@ -47,6 +47,7 @@ class GenAIController {
       const response = await AIConnection.generateResponse(prompt);
 
       res.locals.response = response;
+      //store respnse into linktaFlow doc
 
       return next();
     } catch (err: unknown) {
