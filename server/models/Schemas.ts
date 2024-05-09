@@ -6,34 +6,38 @@ import type {
 } from '@/server/types/shcemaTypes';
 // import { User } from 'firebase/auth';
 
-const userSchema: Schema<UserType> = new Schema({
-  firstName: {
-    type: String,
-    //optional fields for future consideration
-    required: true,
-    minLength: 3,
-    maxLength: 30,
-    trim: true,
-  },
-  lastName: {
-    type: String,
-  },
-  linktaFlows: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'LinktaFlow',
+const userSchema: Schema<UserType> = new Schema(
+  {
+    firstName: {
+      type: String,
+      //optional fields for future consideration
+      required: true,
+      minLength: 3,
+      maxLength: 30,
+      trim: true,
     },
-  ],
-  timestamps: true,
-});
-
-const userInputSchema: Schema<UserInputType> = new Schema({
-  input: {
-    type: String,
-    required: true,
+    lastName: {
+      type: String,
+    },
+    linktaFlows: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'LinktaFlow',
+      },
+    ],
   },
-  timestamps: true,
-});
+  { timestamps: true }
+);
+
+const userInputSchema: Schema<UserInputType> = new Schema(
+  {
+    input: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
 const linktaFlowSchema: Schema<LinktaFlowType> = new Schema({
   nodes: [
