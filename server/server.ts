@@ -1,12 +1,12 @@
 import express from 'express';
-import { getEnv } from '@server/utils/environment';
-import genAI from '@server/routes/genAi';
-import { globalErrorHandler } from '@server/middleware/errorHandling';
-import bodyParser from 'body-parser';
-import { MongoClient, ServerApiVersion } from 'mongodb';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import { getEnv } from '@server/utils/environment';
+import { globalErrorHandler } from '@server/middleware/errorHandling';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 import type { Express, Request, Response } from 'express';
 import type { Server } from 'http';
+import genAI from '@server/routes/genAi';
 import { LinktaFlowRouter } from './routes/linktaFlowRouter';
 
 getEnv();
