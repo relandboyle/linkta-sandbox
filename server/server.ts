@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import { getEnv } from '@server/utils/environment';
 import { globalErrorHandler } from '@server/middleware/errorHandling';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import mongoose from 'mongoose';
 import type { Express, Request, Response } from 'express';
 import type { Server } from 'http';
 import genAI from '@server/routes/genAi';
