@@ -4,8 +4,6 @@ import TreePrompts from '@/server/models/TreePromptsModel';
 import { isType } from '@server/utils/typeChecker';
 import { AIProvider } from '@server/types/index';
 
-import { LinktaFlow } from '@/server/models/Schemas';
-
 import type { Request, Response, NextFunction } from 'express';
 import type {
   GenerativeAIModel,
@@ -50,8 +48,6 @@ class GenAIController {
 
       res.locals.response = response;
       //store respnse into linktaFlow doc
-      
-      await LinktaFlow.create({ response });
 
       return next();
     } catch (err: unknown) {
