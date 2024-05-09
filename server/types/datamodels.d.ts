@@ -1,14 +1,24 @@
-import type { Types } from 'mongoose';
+import type { Document, Types } from 'mongoose';
+import type { Node, Edge } from 'reactflow';
 
-export type User = {
+export interface UserType extends Document {
   _id: Types.ObjectId;
-  firebaseId: string;
-  treeIds: [{ type: Types.ObjectId; ref: TreeNode }];
-};
+  // firebaseId: string;
+  // email: string;
+  firstName: string;
+  lastName: string;
+  linktaFlows: Types.ObjectId[];
+  createdAt: Date;
+}
 
-export type TreeNode = {
-  _id: Types.ObjectId;
-  content: string;
-  childNodes: [{ type: Types.ObjectId; ref: TreeNode }];
-  depth: number;
-};
+export interface LinktaFlowType {
+  nodes: Node[];
+  edges: Edge[];
+  userInputId: Types.ObjectId;
+  userId: Types.ObjectId;
+}
+
+export interface UserInputType extends Document {
+  userInput: string;
+  createdAt: Date;
+}
