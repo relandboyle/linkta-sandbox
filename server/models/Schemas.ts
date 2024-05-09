@@ -24,21 +24,15 @@ const userSchema: Schema<UserType> = new Schema({
       ref: 'LinktaFlow',
     },
   ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  timestamp: true,
 });
 
 const userInputSchema: Schema<UserInputType> = new Schema({
-  userInput: {
+  input: {
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  timestamp: true,
 });
 
 const linktaFlowSchema: Schema<LinktaFlowType> = new Schema({
