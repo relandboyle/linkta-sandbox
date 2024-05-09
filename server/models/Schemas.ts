@@ -3,7 +3,7 @@ import type {
   UserType,
   LinktaFlowType,
   UserInputType,
-} from '@/server/types/datamodels';
+} from '@/server/types/shcemaTypes';
 // import { User } from 'firebase/auth';
 
 const userSchema: Schema<UserType> = new Schema({

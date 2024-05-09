@@ -22,3 +22,4 @@ export interface UserInputType extends Document {
   userInput: string;
   createdAt: Date;
 }
+
