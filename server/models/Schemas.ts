@@ -24,7 +24,7 @@ const userSchema: Schema<UserType> = new Schema({
       ref: 'LinktaFlow',
     },
   ],
-  timestamp: true,
+  timestamps: true,
 });
 
 const userInputSchema: Schema<UserInputType> = new Schema({
@@ -32,7 +32,7 @@ const userInputSchema: Schema<UserInputType> = new Schema({
     type: String,
     required: true,
   },
-  timestamp: true,
+  timestamps: true,
 });
 
 const linktaFlowSchema: Schema<LinktaFlowType> = new Schema({

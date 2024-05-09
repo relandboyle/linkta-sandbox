@@ -8,7 +8,7 @@ export interface UserType extends Document {
   firstName: string;
   lastName: string;
   linktaFlows: Types.ObjectId[];
-  timestamp: boolean;
+  timestamps: boolean;
 }
 
 export interface LinktaFlowType {
@@ -20,6 +20,6 @@ export interface LinktaFlowType {
 
 export interface UserInputType extends Document {
   input: string;
-  timestamp: boolean;
+  timestamps: boolean;
 }
 
