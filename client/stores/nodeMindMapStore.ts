@@ -13,6 +13,7 @@ import { createWithEqualityFn } from 'zustand/traditional';
 import { nanoid } from 'nanoid/non-secure';
 
 export type RFState = {
+  treeId: string;
   nodes: Node[];
   edges: Edge[];
   onNodesChange: OnNodesChange;
@@ -22,6 +23,7 @@ export type RFState = {
 };
 
 const useStore = createWithEqualityFn<RFState>((set, get) => ({
+  treeId: '663bfa27e3b94f9783b2ffb3',
   nodes: [
     {
       id: 'root',
