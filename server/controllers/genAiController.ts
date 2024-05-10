@@ -4,7 +4,7 @@ import TreePrompts from '@/server/models/TreePromptsModel';
 import { isType } from '@server/utils/typeChecker';
 import { AIProvider } from '@server/types/index';
 
-import { LinktaFlow, UserInput, User } from '@/server/models/Schemas';
+import { LinktaFlow, UserInput } from '@/server/models/Schemas';
 
 import type { Request, Response, NextFunction } from 'express';
 import type {
