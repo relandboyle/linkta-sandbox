@@ -12,7 +12,6 @@ import { LinktaFlowRouter } from './routes/linktaFlowRouter';
 getEnv();
 const uri = process.env.MONGO_DB_URI;
 mongoose.set('strictQuery', false);
-
 /**
  * Start the server.
  */
