@@ -2,17 +2,22 @@ import { Box, TextField } from '@radix-ui/themes';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const PromptInputForm = () => {
   const [inputValue, setInputValue] = useState('');
+  const navigate = useNavigate();
 
   const newPromptMutation = useMutation({
     mutationFn: async (userInput) => {
-      const response = await axios.post('http://localhost:3000/gen-ai/query', { input: userInput });
+      const response = await axios.post('http://localhost:3000/gen-ai/query', {
+        input: userInput,
+      });
       return response.data;
     },
     onSuccess: (data) => {
       console.log('Prompt sent successfully', data);
+      navigate('/output');
     },
     onError: (error) => {
       console.error('Error sending prompt: ', error);
