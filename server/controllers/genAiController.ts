@@ -82,7 +82,7 @@ class GenAIController {
 
       // Here we will need to parse the response and build the tree
       // with something more meaningful, like res.locals.tree
-
+      console.log(`I am here`)
       res.locals.tree = response;
 
       return next();
