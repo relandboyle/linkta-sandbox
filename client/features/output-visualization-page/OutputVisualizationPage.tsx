@@ -8,7 +8,6 @@ const OutputVisualizationPage = () => {
   const saveFlowStateMutation = useMutation({
     mutationFn: () => {
       const { nodes, edges, treeId } = useStore.getState();
-      console.log('saving nodes to tree', nodes);
       return axios.post(`/api/trees/${treeId}`, { nodes, edges });
     },
   });
