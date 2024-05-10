@@ -4,6 +4,8 @@ import TreePrompts from '@/server/models/TreePromptsModel';
 import { isType } from '@server/utils/typeChecker';
 import { AIProvider } from '@server/types/index';
 
+import { LinktaFlow } from '@/server/models/Schemas';
+
 import type { Request, Response, NextFunction } from 'express';
 import type {
   GenerativeAIModel,
@@ -47,8 +49,6 @@ class GenAIController {
       const response = await AIConnection.generateResponse(prompt);
 
       res.locals.response = response;
-      //store respnse into linktaFlow doc
-
       return next();
     } catch (err: unknown) {
       const methodError = createError(
@@ -83,6 +83,10 @@ class GenAIController {
       // Here we will need to parse the response and build the tree
       // with something more meaningful, like res.locals.tree
 
+      //store respnse into linktaFlow doc
+      console.log('...in generate tree', response);
+      const [nodes, edges] = response;
+      await LinktaFlow.create({ nodes, edges });
       res.locals.tree = response;
 
       return next();
