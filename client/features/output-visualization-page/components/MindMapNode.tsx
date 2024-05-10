@@ -10,7 +10,7 @@ export type NodeData = {
 };
 
 export function MindMapNode({ id, data }: NodeProps<NodeData>) {
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
   const updateNodeLabel = useStore((state) => state.updateNodeLabel);
 
   useLayoutEffect(() => {
