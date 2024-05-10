@@ -4,7 +4,7 @@ import TreePrompts from '@/server/models/TreePromptsModel';
 import { isType } from '@server/utils/typeChecker';
 import { AIProvider } from '@server/types/index';
 
-import { LinktaFlow, UserInput } from '@/server/models/Schemas';
+import { LinktaFlow, UserInput, User } from '@/server/models/Schemas';
 
 import type { Request, Response, NextFunction } from 'express';
 import type {
@@ -99,10 +99,14 @@ class GenAIController {
 
       const linktaFlowId = await LinktaFlow.create(linktaFlowData);
       //TODO: once linktaFlow doc is successfully added to DB, do we update linktaflowId to user's linktaflows[] property?
+      const treeId = linktaFlowId._id.toString();
 
+      await User.findByIdAndUpdate(dummyUserId, {
+        $push: { linktaFlows: treeId },
+      }); //need to be tested
       res.locals.tree = response; //send respsonse - {nodes: [{}], edges: [{}]} in JSON format
       //send linktaflow doc/tree Id back to front end
-      res.locals.treeId = linktaFlowId._id.toString();
+      res.locals.treeId = treeId;
       return next();
     } catch (err: unknown) {
       const methodError = createError(
