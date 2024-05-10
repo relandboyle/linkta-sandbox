@@ -8,6 +8,13 @@ import type { Express, Request, Response } from 'express';
 import type { Server } from 'http';
 import genAI from '@server/routes/genAi';
 import { LinktaFlowRouter } from './routes/linktaFlowRouter';
+import cors from 'cors';
+
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
 getEnv();
 const uri = process.env.MONGO_DB_URI;
@@ -26,6 +33,8 @@ function startServer() {
   connectToDatabase(uri).catch(console.dir);
 
   app.use(bodyParser.json());
+
+  app.use(cors(corsOptions));
 
   /**
    * Test route for the server. This should direct to the frontend.

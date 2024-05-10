@@ -3,6 +3,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import { Theme } from '@radix-ui/themes';
+import '@radix-ui/themes/styles.css';
 import './styles/index.css';
 
 const rootElement = document.getElementById('root');
@@ -17,9 +19,11 @@ const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <Theme>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </Theme>
   </React.StrictMode>
 );
