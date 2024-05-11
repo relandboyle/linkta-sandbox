@@ -11,8 +11,7 @@ const PromptInputForm = () => {
   const newPromptMutation = useMutation({
     mutationFn: async (userInput) => {
       const response = await axios.post('http://localhost:3000/gen-ai/query', {
-        input: userInput,
-      });
+        prompt: userInput.prompt });
       return response.data;
     },
     onSuccess: (data) => {
@@ -31,13 +30,14 @@ const PromptInputForm = () => {
   const handleSubmit = () => {
     // console.log(inputValue);
     console.log('text typed into input bar: ', inputValue);
-    newPromptMutation.mutate({ input: inputValue });
+    newPromptMutation.mutate({ prompt: inputValue });
   };
 
   return (
     <div className="mt-48">
       <Box maxWidth="200px">
         <TextField.Root
+          type="text"
           placeholder="Enter your prompt"
           value={inputValue}
           onChange={handleChange}
