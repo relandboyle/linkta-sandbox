@@ -24,14 +24,7 @@ export type RFState = {
 
 const useStore = createWithEqualityFn<RFState>((set, get) => ({
   treeId: '663bfa27e3b94f9783b2ffb3',
-  nodes: [
-    {
-      id: 'root',
-      type: 'mindmap',
-      data: { label: 'React Flow Mind Map' },
-      position: { x: 0, y: 0 },
-    },
-  ],
+  nodes: [],
   edges: [],
   onNodesChange: (changes: NodeChange[]) => {
     set({

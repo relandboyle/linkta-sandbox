@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useStore from '@/client/stores/nodeMindMapStore';
+import dagreAutoLayout from '@/client/utils/dagreAutoLayout';
 
 interface PromptPayload {
   prompt: string;
@@ -20,7 +22,11 @@ const PromptInputForm = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      console.log('Prompt sent successfully', data);
+      const response = JSON.parse(data.response);
+      const { nodes, edges } = response;
+      dagreAutoLayout(nodes, edges, 200, 50);
+      useStore.setState({ nodes, edges });
+      console.log('Prompt sent successfully', response);
       navigate('/output');
     },
     onError: (error) => {
