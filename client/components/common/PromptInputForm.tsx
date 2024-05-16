@@ -4,14 +4,18 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+interface PromptPayload {
+  prompt: string;
+}
+
 const PromptInputForm = () => {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
 
   const newPromptMutation = useMutation({
-    mutationFn: async (userInput) => {
+    mutationFn: async (userInput: PromptPayload) => {
       const response = await axios.post('http://localhost:3000/gen-ai/query', {
-        input: userInput,
+        prompt: userInput.prompt,
       });
       return response.data;
     },
@@ -24,20 +28,19 @@ const PromptInputForm = () => {
     },
   });
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleSubmit = () => {
-    // console.log(inputValue);
-    console.log('text typed into input bar: ', inputValue);
-    newPromptMutation.mutate({ input: inputValue });
+    newPromptMutation.mutate({ prompt: inputValue });
   };
 
   return (
     <div className="mt-48">
       <Box maxWidth="200px">
         <TextField.Root
+          type="text"
           placeholder="Enter your prompt"
           value={inputValue}
           onChange={handleChange}
