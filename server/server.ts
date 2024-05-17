@@ -4,11 +4,17 @@ import bodyParser from 'body-parser';
 import { getEnv } from '@server/utils/environment';
 import { globalErrorHandler } from '@server/middleware/errorHandling';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import type { Express, Request, Response } from 'express';
+import type { Express, NextFunction, Request, Response } from 'express';
 import type { Server } from 'http';
 import genAI from '@server/routes/genAi';
 import { LinktaFlowRouter } from './routes/linktaFlowRouter';
 import cors from 'cors';
+import { getLogger } from 'log4js';
+import { Log4jsConfig } from './utils/log4js.config';
+getEnv();
+
+Log4jsConfig(process.env.LOG_LEVEL || 'info');
+const logger = getLogger('[Linkta Server]');
 
 const corsOptions = {
   origin: 'http://localhost:5173',
@@ -16,7 +22,6 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-getEnv();
 const uri = process.env.MONGO_DB_URI;
 mongoose.set('strictQuery', false);
 /**
@@ -46,9 +51,17 @@ function startServer() {
   /**
    * Routes.
    */
-  app.use('/gen-ai', genAI);
+  app.use('/gen-ai', genAI, (req: Request, res: Response, next: NextFunction) => {
+    logger.debug(req.params);
+    logger.debug(res);
+    next();
+  });
 
-  app.use('/api/trees', LinktaFlowRouter);
+  app.all('/api/trees', LinktaFlowRouter, (req: Request, res: Response, next: NextFunction) => {
+    logger.debug(req.params);
+    logger.debug(res);
+    next();
+  });
 
   /**
    * Default route for unknown routes. This should be the last route.
@@ -67,9 +80,10 @@ function startServer() {
    * Start the server.
    */
   const server: Server = app.listen(PORT, () => {
-    console.log(
-      `Server is running on http://localhost:${PORT} in ${process.env.NODE_ENV} mode.`
-    );
+    // console.log(
+    //   `Server is running on http://localhost:${PORT} in ${process.env.NODE_ENV} mode.`
+    // );
+    logger.info(`Server is running on http://localhost:${PORT} in ${process.env.NODE_ENV} mode.`);
   });
 
   /**
@@ -89,7 +103,8 @@ function startServer() {
  */
 function stopServer(server: Server) {
   server.close(() => {
-    console.log('Server stopped.');
+    // console.log('Server stopped.');
+    logger.warn('Server stopped.');
 
     // disconnect from the database
 
@@ -118,11 +133,15 @@ async function connectToDatabase(link: string) {
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 });
-    console.log(
-      'Pinged your deployment. You successfully connected to MongoDB!'
-    );
+    // console.log(
+    //   'Pinged your deployment. You successfully connected to MongoDB!'
+    // );
+    logger.info('Pinged your deployment. You successfully connected to MongoDB!')
     await mongoose.connect(uri ?? '')
-      .then(() => console.log('MONGOOSE connected!'))
+      .then(() => {
+        // console.log('MONGOOSE connected!');
+        logger.info('MONGOOSE connected!')
+      })
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();

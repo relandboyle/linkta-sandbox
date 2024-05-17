@@ -3,3 +3,4 @@ node_modules
 serviceAccount.json
 dist
 .DS_Store
+app.log

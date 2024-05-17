@@ -67,6 +67,7 @@
     "express": "^4.18.3",
     "firebase": "^10.9.0",
     "firebase-admin": "^12.0.0",
+    "log4js": "^6.9.1",
     "mongodb": "^6.4.0",
     "mongoose": "^8.2.1",
     "node": "^21.7.1",
