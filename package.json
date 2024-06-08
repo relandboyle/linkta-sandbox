@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A learning tool for people to learn fast and easy",
   "main": "index.js",
+  "engines": {
+    "node": "20.14.0"
+  },
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "vite --config client/vite.config.js",
