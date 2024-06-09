@@ -92,14 +92,14 @@ class GenAIController {
       const linktaFlowData = {
         nodes: nodes,
         edges: edges,
-        userInputId: userInputId._id.toString(),
+        userInputId: userInputId._id,
         userId: dummyUserId,
       };
       console.log('linktaflowdata: ->', linktaFlowData);
 
       const linktaFlowId = await LinktaFlow.create(linktaFlowData);
       const treeId = linktaFlowId._id.toString();
-      
+
       //once linktaFlow doc is successfully added to DB, update linktaflowId to user's linktaflows[] property
       await User.findByIdAndUpdate(dummyUserId, {
         $push: { linktaFlows: treeId },
