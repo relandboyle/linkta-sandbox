@@ -45,6 +45,7 @@ function startServer() {
    * Test route for the server. This should direct to the frontend.
    */
   app.get('/', (_: Request, res: Response) => {
+    logger.info('HIT LINKTA SERVER')
     res.send({ message: 'Hello from the Backend!' });
   });
 
@@ -57,7 +58,7 @@ function startServer() {
     next();
   });
 
-  app.all('/api/trees', LinktaFlowRouter, (req: Request, res: Response, next: NextFunction) => {
+  app.use('/api/trees', LinktaFlowRouter, (req: Request, res: Response, next: NextFunction) => {
     logger.debug(req.params);
     logger.debug(res);
     next();
